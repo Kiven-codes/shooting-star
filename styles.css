@@ -316,3 +316,60 @@ body {
   display: block;
   margin-top: 3px;
 }
+
+/* Add responsive styles for mobile devices */
+@media (max-width: 768px) {
+  body {
+    overflow: auto; /* Allow scrolling on smaller screens */
+  }
+
+  .person-container {
+    width: 150px; /* Reduce size of the person container */
+    height: 150px;
+    bottom: 5px; /* Adjust position */
+    right: 20px;
+  }
+
+  #person-gif {
+    opacity: 0.9; /* Slightly increase visibility for smaller screens */
+  }
+
+  .message-bubble {
+    width: 220px; /* Reduce the width of the message bubble */
+    left: -200px; /* Adjust position */
+    top: -80px;
+    font-size: 12px; /* Reduce font size */
+    padding: 12px;
+  }
+
+  .message-bubble::after {
+    bottom: -8px; /* Adjust arrow position */
+    right: 20px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .author-box {
+    bottom: 10px; /* Adjust position of the author box */
+    left: 10px;
+  }
+
+  .author-icon {
+    width: 25px; /* Reduce size of the author icon */
+    height: 25px;
+  }
+
+  .author-info {
+    font-size: 10px; /* Reduce font size for author info */
+    padding: 8px 10px;
+    max-width: 150px; /* Adjust max width */
+  }
+
+  #stars {
+    height: 100%; /* Ensure stars container fits the screen */
+  }
+
+  .trees-container {
+    height: 100px; /* Reduce tree container height */
+  }
+}
