@@ -1,0 +1,318 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+}
+
+.space-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.6);
+  --trail-length: 80px;
+  --star-brightness: 1;
+  z-index: 5;
+}
+
+.shooting-star::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--trail-length);
+  height: 1.5px;
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, calc(0.8 * var(--star-brightness))),
+      rgba(255, 255, 255, calc(0.4 * var(--star-brightness))),
+      transparent);
+  transform-origin: left;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+/* Trees styling */
+.trees-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%),
+    repeating-linear-gradient(to right,
+      transparent 0px,
+      transparent 30px,
+      black 30px,
+      black 60px,
+      transparent 60px,
+      transparent 90px,
+      black 90px,
+      black 120px);
+  z-index: 10;
+}
+
+.trees-container::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-image: radial-gradient(circle at 50% 100%, black 0%, black 40%, transparent 40%),
+    radial-gradient(circle at 10% 100%, black 0%, black 30%, transparent 30%),
+    radial-gradient(circle at 20% 100%, black 0%, black 35%, transparent 35%),
+    radial-gradient(circle at 30% 100%, black 0%, black 25%, transparent 25%),
+    radial-gradient(circle at 40% 100%, black 0%, black 40%, transparent 40%),
+    radial-gradient(circle at 60% 100%, black 0%, black 35%, transparent 35%),
+    radial-gradient(circle at 70% 100%, black 0%, black 30%, transparent 30%),
+    radial-gradient(circle at 80% 100%, black 0%, black 35%, transparent 35%),
+    radial-gradient(circle at 90% 100%, black 0%, black 25%, transparent 25%),
+    radial-gradient(circle at 100% 100%, black 0%, black 30%, transparent 30%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* Person watching stars */
+.person-container {
+  position: absolute;
+  bottom: 10px;
+  right: 40px;
+  z-index: 20;
+  width: 220px;
+  height: 220px;
+  filter: drop-shadow(0 0 10px rgba(41, 98, 255, 0.2));
+  cursor: pointer;
+  /* Add pointer cursor to indicate it's clickable */
+}
+
+#person-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0.9) contrast(1.1) hue-rotate(20deg);
+  mix-blend-mode: lighten;
+  opacity: 0.85;
+}
+
+/* Fallback for missing GIF */
+#person-gif:not([src]),
+#person-gif[src="/placeholder.svg"],
+#person-gif[src="person-watching-stars.gif"] {
+  position: relative;
+  background: radial-gradient(circle at center, rgba(41, 98, 255, 0.2), transparent 70%);
+}
+
+#person-gif:not([src])::before,
+#person-gif[src="/placeholder.svg"]::before,
+#person-gif[src="person-watching-stars.gif"]::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+  border-radius: 40px 40px 0 0;
+  box-shadow: 0 0 20px rgba(41, 98, 255, 0.3);
+}
+
+#person-gif:not([src])::after,
+#person-gif[src="/placeholder.svg"]::after,
+#person-gif[src="person-watching-stars.gif"]::after {
+  content: "";
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(41, 98, 255, 0.2);
+}
+
+/* Quote bubble styling */
+.message-bubble {
+  position: absolute;
+  top: -100px;
+  left: -240px;
+  width: 280px;
+  background: rgba(13, 18, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  font-size: 14px;
+  box-shadow: 0 0 20px rgba(41, 98, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.1) inset;
+  -webkit-backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.message-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 30px;
+  width: 20px;
+  height: 20px;
+  background: rgba(13, 18, 40, 0.85);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+}
+
+.message-bubble p {
+  margin: 0;
+  text-shadow: 0 0 5px rgba(41, 98, 255, 0.5);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.quote-author {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 12px;
+  text-align: right;
+  opacity: 0.8;
+}
+
+/* Show message bubble when active */
+.message-bubble.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add a subtle glow animation to the message */
+@keyframes messagePulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(41, 98, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(41, 98, 255, 0.5), 0 0 8px rgba(255, 255, 255, 0.2) inset;
+  }
+}
+
+.message-bubble.active {
+  animation: messagePulse 3s infinite ease-in-out;
+}
+
+/* Author box styling */
+.author-box {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+}
+
+.author-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(41, 98, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(41, 98, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.author-icon:hover {
+  background: rgba(41, 98, 255, 0.5);
+  box-shadow: 0 0 15px rgba(41, 98, 255, 0.6);
+}
+
+.author-info {
+  background: rgba(13, 18, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-left: 10px;
+  color: white;
+  font-size: 12px;
+  box-shadow: 0 0 15px rgba(41, 98, 255, 0.3);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.author-info.active {
+  opacity: 1;
+  transform: translateX(0);
+  max-width: 200px;
+  pointer-events: auto;
+}
+
+.author-name {
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  display: block;
+  margin-top: 3px;
+}
